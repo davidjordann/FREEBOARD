@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dweet.io Data</title>
+    <script>
+        function fetchData() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    document.getElementById("temperatura").innerHTML = "Temperatura: " + response.with[0].content.temperatura;
+                    document.getElementById("humedad").innerHTML = "Humedad: " + response.with[0].content.humedad;
+                }
+            };
+            xhttp.open("GET", "https://dweet.io/get/latest/dweet/for/ucevaDO", true);  // Cambia "ucevaDO" al nombre de tu "thing"
+            xhttp.send();
+        }
+        setInterval(fetchData, 5000); // Actualiza los datos cada 5 segundos
+    </script>
+</head>
+<body>
+    <h1>Dweet.io Data</h1>
+    <div id="temperatura">Temperatura: </div>
+    <div id="humedad">Humedad: </div>
+</body>
+</html>
